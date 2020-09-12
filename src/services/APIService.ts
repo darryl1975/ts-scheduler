@@ -1,0 +1,1 @@
+export const APIServiceURL : string = 'http://costa-backend.azurewebsites.net';

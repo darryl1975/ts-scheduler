@@ -1,0 +1,209 @@
+.modal-title {
+  color: var(--unnamed-color-1f2024);
+  text-align: left;
+  font-family: 'Montserrat';
+  font-size: 32px;
+  font-weight: bold;
+  /* font: SemiBold 32px/25px Montserrat; */
+  letter-spacing: 0px;
+  color: rgba(31, 32, 36, 1);
+  opacity: 1;
+}
+
+.modal-label {
+  text-align: left;
+  border: none !important;
+  font-family: 'Montserrat';
+  font-weight: bold !important;
+  font-size: 16px !important;
+  /* font: Medium 16px/25px Montserrat; */
+  letter-spacing: 0px;
+  color: black !important;
+  margin-bottom: 0px !important;
+  opacity: 1;
+}
+
+.modal-buttons {
+display: flex;
+justify-content: flex-start;
+}
+
+.modal-button-margin5 {
+  margin: 15px;
+}
+
+.modal-squadron-input {
+  margin-top: 0px !important;
+  width: 100% !important;
+  height: 45px !important;
+  border-left: 5.44px inset #54A5E0 !important; 
+}
+
+.modal-squadron-admin {
+  width: 100% !important;
+  height: 45px !important;
+  background: var(--unnamed-color-9898ad) 0% 0% no-repeat padding-box !important;
+  background: rgba(152, 152, 173, 1) 0% 0% no-repeat padding-box !important;
+  border-radius: 5px 5px 0px 0px;
+  opacity: 1;
+
+  margin-left: 0px !important;
+}
+
+.modal-squadron-position {
+  width: 100% !important;
+  height: 45px !important;
+  background: var(--unnamed-color-9898ad) 0% 0% no-repeat padding-box !important;
+  background: rgba(152, 152, 173, 1) 0% 0% no-repeat padding-box !important;
+  border-radius: 5px 5px 0px 0px;
+  opacity: 1;
+
+  margin-left: 0px !important;
+}
+
+.modal-background-white {
+  background: white !important;
+}
+
+.modal-squadron-admin-label {
+  background: rgba(152, 152, 173, 1) 0% 0% no-repeat padding-box !important;
+}
+
+.modal-squadron-admin-callsign {
+  width: 100% !important;
+  height: 45px !important;
+  color: var(--unnamed-color-a7b3c1);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(167, 179, 193, 1);
+  border-left: 5.44px inset #54A5E0 !important; 
+  opacity: 1;
+}
+
+.modal-squadron-admin-email {
+  width: 100% !important;
+  height: 45px !important;
+  color: var(--unnamed-color-a7b3c1);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(167, 179, 193, 1);
+  border-left: 5.44px inset #54A5E0 !important; 
+  opacity: 1;
+
+  margin-left: 24px;
+}
+
+.modal-squadron-admin-callsign-input {
+  width: 100% !important;
+  height: 45px !important;
+  color: var(--unnamed-color-a7b3c1);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(167, 179, 193, 1);
+  border-left: 5.44px inset #54A5E0 !important; 
+  opacity: 1;
+}
+
+.modal-squadron-admin-input {
+  width: 100% !important;
+  height: 45px !important;
+  color: var(--unnamed-color-a7b3c1);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(167, 179, 193, 1);
+  border-left: 5.44px inset #54A5E0 !important; 
+  opacity: 1;
+}
+
+.modal-announcementtext {
+  width: 100% !important;
+  color: var(--unnamed-color-a7b3c1);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(167, 179, 193, 1);
+  border-left: 5.44px inset #54A5E0 !important; 
+  opacity: 1;
+}
+
+
+.modal-save {
+  width: 215px !important;
+  height: 56px !important;
+  background: transparent
+    linear-gradient(
+      303deg,
+      rgba(44, 191, 199, 1) 0%,
+      rgba(70, 238, 170, 1) 100%
+    )
+    0% 0% no-repeat padding-box;
+  border: 2px solid rgba(55, 210, 187, 1) !important;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.modal-cancel {
+  width: 215px !important;
+  height: 56px !important;
+  border: 2px solid rgba(55, 210, 187, 1) !important;
+  border-radius: 5px;
+  color: rgba(55, 210, 187, 1) !important;
+  opacity: 1;
+}
+
+.modal-padding-left {
+  padding-left: 10px !important;
+  padding-bottom: 0px !important;
+}
+
+.modal-no-padding {
+    padding: 0px 0px 0px 0px !important;
+}
+.modal-no-margin {
+    margin: 0px 0px 0px 0px !important;
+}
+
+.modal-margin-top50 {
+  margin-top: 50px;
+}
+
+.modal-margin-top20 {
+  margin-top: 20px;
+}
+
+.modal-title-input {
+  width: 100% !important;
+  height: 45px !important;
+  border: 1px solid var(--unnamed-color-c3d2e2);
+  border: 1px solid #c3d2e2;
+  border-left: 5.44px inset #54a5e0 !important;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.modal-span-right {
+  float: right;
+}
+
+.error {
+  color: red;
+}

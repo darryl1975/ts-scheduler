@@ -1,0 +1,331 @@
+html body .body-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: lightgray;
+}
+
+.body-container {
+  background: url(../images/costa_background_sky.png) no-repeat center center
+    fixed;
+  background-size: cover;
+}
+
+.nav-container {
+  display: block;
+  min-width: 100%;
+  padding: 0px;
+
+  top: 80px;
+  left: 0px;
+  height: 80px;
+  opacity: 1;
+
+  background: var(--unnamed-color-373b5f) 0% 0% no-repeat padding-box;
+  background: rgba(55, 59, 95, 1) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 6px rgba(31, 32, 36, 0.24);
+  opacity: 1;
+}
+
+.nav-container-inner {
+  display: block;
+  min-width: 100%;
+  padding: 0px;
+  background-color: #ffffff;
+
+  top: 80px;
+  left: 0px;
+  height: 136px;
+  opacity: 1;
+
+  padding-top: 49px;
+  padding-bottom: 48px;
+
+  background: var(--unnamed-color-373b5f) 0% 0% no-repeat padding-box;
+  background: rgba(85, 91, 150, 1) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 6px rgba(31, 32, 36, 0.24);
+  opacity: 1;
+}
+
+.form-style {
+  opacity: 1;
+}
+
+.form-login-input {
+  width: 60% !important;
+  height: 45px !important;
+  /* margin-left: 132px; */
+  margin-left: 113px;
+}
+
+.form-login-label {
+  color: var(--unnamed-color-ffffff);
+  text-align: left;
+  font-family: 'Montserrat';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: SemiBold 18px/25px Montserrat; */
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  /* margin-left: 132px; */
+  margin-left: 113px;
+}
+
+.form-gap-username {
+  margin-top: 56px;
+}
+
+.form-gap-24 {
+  margin-top: 24px;
+}
+
+.form-gap-40 {
+  margin-top: 40px;
+}
+
+.af-logo {
+  position: absolute;
+  left: 39px;
+  top: 50px;
+}
+
+.login-box {
+  /* background: #7f7f7f;
+  background: rgba(0, 0, 0, 0.5); */
+  background: -webkit-linear-gradient(to right, #dde1ff, #232958);
+  background: linear-gradient(to right, #dde1ff, #232958);
+  opacity: 0.8;
+  width: 40% !important;
+  height: 80% !important;
+  /* width: 701px !important;
+  height: 756px !important; */
+}
+
+.login-header-text {
+  color: var(--unnamed-color-ffffff);
+  text-align: center;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 18px;
+  /* font: SemiBold 25px/38px Montserrat; */
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.login-button {
+  color: var(--unnamed-color-ffffff);
+  text-align: center;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 18px;
+  /* font: Medium 18px/25px Montserrat; */
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  width: 60% !important;
+  height: 59px !important;
+  /* width: 436px !important;
+  height: 59px !important; */
+  /* margin-left: 133px; */
+  margin-left: 113px;
+  background: #2cbfc7;
+  background: -webkit-linear-gradient(to right, #46eeaa, #2cbfc7);
+  background: linear-gradient(to right, #46eeaa, #2cbfc6);
+}
+
+.login-logo {
+  width: 40%;
+  height: 40%;
+}
+
+.forgot-password {
+  /* margin-top: 20px; */
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  color: #ffffff;
+}
+
+.create-button {
+  top: 120px;
+  left: 1592px;
+  width: 215px;
+  height: 56px;
+  background: transparent
+    linear-gradient(
+      303deg,
+      rgba(44, 191, 199, 1) 0%,
+      rgba(70, 238, 170, 1) 100%
+    )
+    0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.card-style {
+  width: 546px;
+  height: 157px;
+  /* margin: 15px 15px 15px 15px; */
+}
+
+
+.card-style:hover {
+  width: 546px;
+  height: 160px;
+  border-style: solid;
+  border-width: medium;
+  border-color: dodgerblue; 
+}
+
+.card-title {
+  color: var(--unnamed-color-373b5f);
+  text-align: left;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 24px;
+  /* font: SemiBold 24px/22px Montserrat; */
+  letter-spacing: 0px;
+  color: rgba(55, 59, 95, 1);
+  opacity: 1;
+}
+
+.card-subtitle {
+  color: var(--unnamed-color-595a72);
+  text-align: left;
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-size: 18px;
+  /* font: Regular 18px/25px Roboto; */
+  letter-spacing: 0px;
+  color: rgba(89, 90, 114, 1);
+  opacity: 1;
+}
+
+.bs-card-body {
+  color: black;
+}
+
+.bs-card-title {
+  color: black;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 24px;
+  /* font: SemiBold 24px/22px Montserrat; */
+  letter-spacing: 0px;
+  color: rgba(55, 59, 95, 1);
+  opacity: 1;
+}
+
+.bs-card-text {
+  color: black;
+}
+
+.card-img-width {
+  padding-left: 2px;
+  width: 150px !important;
+}
+.card-height {
+  padding-top: 2px;
+  height: 155px;
+}
+
+.card-objectfit {
+  object-fit: cover;
+  margin-top: -2px;
+}
+
+.squadron-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+/* bootstraptable */
+.columnClassNameFormat1 {
+  border: none;
+}
+
+.color-selector {
+  width: 100% !important;
+  /* height: 45px !important; */
+  border: 0px solid var(--unnamed-color-c3d2e2);
+  border: 0px solid #c3d2e2;
+  border-left: 5.44px inset #54a5e0;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.cat-selector-inner {
+  padding-left: 23px;
+}
+
+.margin-avatar {
+  width: 100% !important;
+  text-align: center !important;
+  display: inline-block;
+}
+
+.margin-avatar-center {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+  background-color: white;
+}
+
+.margin-avatar-text {
+  width: 100%;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: var(--unnamed-color-ffffff);
+  text-align: center !important;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 18px;
+  /* font: Bold 18px/22px Montserrat; */
+  letter-spacing: 0px;
+  /* word-wrap: break-word; */
+  white-space: initial;
+  color: #ffffff;
+  opacity: 1;
+}
+
+
+/* Container for flexboxes */
+.modal-button-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+/* Create four equal columns */
+.modal-button-col {
+  flex: 50% !important;
+  padding-bottom: 10px;
+}
+
+/* Container for flexboxes */
+.modal-button-row2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create four equal columns */
+.modal-button-col2 {
+  flex: 20%;
+}
