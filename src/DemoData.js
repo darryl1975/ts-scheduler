@@ -239,7 +239,7 @@ const DemoData = {
         },
         {
             id: 'r7',
-            name: 'Resource7Resource7Resource7Resource7Resource7',
+            name: 'Resource7',
         }
     ],
     events: [

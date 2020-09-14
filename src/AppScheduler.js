@@ -1,23 +1,26 @@
 import React from "react";
-import Scheduler, { SchedulerData, ViewTypes, DnDSource } from "react-big-scheduler";
-import withDragDropContext from './withDnDContext';
-import { Button, ButtonGroup } from 'react-bootstrap';
-
-import "./styles.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Button, ButtonGroup, Tabs, Tab } from 'react-bootstrap';
 import Col from 'antd/lib/col'
 import Row from 'antd/lib/row'
-// import Button from 'antd/lib/button'
-import { DnDTypes } from './DnDTypes';
-import TaskItem from './TaskItem';
-import TaskList from './TaskList';
+
+import "./styles.css";
+import './assets/styles/globalStyles.css';
+import './assets/styles/memberStyle.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Scheduler, { SchedulerData, ViewTypes, DnDSource } from "react-big-scheduler";
+import { DnDTypes } from './scheduler/DnDTypes';
+import TaskItem from './scheduler/TaskItem';
+import TaskList from './scheduler/TaskList';
+import withDragDropContext from './scheduler/withDnDContext';
 import DemoData, {
     WorkingEvents,
     NonWorkingEvents,
     WorkaroundEvents,
     Resources
 } from "./DemoData";
+
+import MemberService from './services/MemberService';
 
 // Reference
 // https://stackoverflow.com/questions/31127731/handling-click-on-buttongroup-in-react-bootstrap
@@ -27,20 +30,22 @@ const events = WorkingEvents;
 //const events = NonWorkingEvents;
 //const events = WorkaroundEvents;
 
+// const schedulerData = new SchedulerData(new Date(), ViewTypes.Day, false, false, {
+//     schedulerWidth: '80%',
+//     calendarPopoverEnabled: true,
+//     eventItemPopoverEnabled: true,
+//     checkConflict: false,
+//     views: [
+//         { viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false }
+//     ]
+// });
+
 class AppScheduler extends React.Component {
+
     constructor(props) {
         super(props);
 
         //let schedulerData = new SchedulerData(new moment("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
-        // let schedulerData = new SchedulerData(new Date(), ViewTypes.Day, false, false, {
-        //     schedulerWidth: '80%',
-        //     calendarPopoverEnabled: true,
-        //     eventItemPopoverEnabled: true,
-        //     checkConflict: false,
-        //     views: [
-        //         { viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false }
-        //     ]
-        // });
         let schedulerData = new SchedulerData(new Date(), ViewTypes.Day, false, false, {
             schedulerWidth: '80%',
             calendarPopoverEnabled: true,
@@ -52,15 +57,58 @@ class AppScheduler extends React.Component {
         });
         schedulerData.localeMoment.locale("en");
         schedulerData.setResources(Resources);
-        schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(this.state.eventMembers);
+
         this.state = {
             viewModel: schedulerData,
+            members: [],
+            eventMembers: [],
             title: '',
             titleColour: '',
             isInstructor: false,
             isTrainee: false,
             taskDndSource: new DnDSource((props) => { return props.task; }, TaskItem, DnDTypes.TASK),
         };
+    }
+
+    componentDidMount() {
+        console.log('AppScheduler componentDidMount: (Entry)');
+
+        MemberService.getBySquadronId(3)
+            .then(res => {
+                const memList = res.data;
+                this.setState({ members: memList });
+
+                const eventMemberList = [];
+                memList.map(m => {
+                    const mbr = {
+                        id: 0,
+                        start: '',
+                        end: '',
+                        resourceId: '',
+                        title: '',
+                        bgColor: '#D9D9D9',
+                        groupId: m.id,
+                        groupName: m.callSign,
+                        isInstructor: false,
+                        isTrainee: false,
+                        squadron: { id: 3 }
+                    }
+
+                    eventMemberList.push(mbr);
+                })
+                this.setState({ eventMembers: eventMemberList });
+
+                console.log('AppScheduler componentDidMount:', this.state.eventMembers);
+            })
+            .catch(e => {
+                console.log('AppScheduler componentDidMount:', e);
+            });
+    }
+
+    componentDidUpdate() {
+
     }
 
     schemaTypeSelectionHandle(event) {
@@ -118,75 +166,87 @@ class AppScheduler extends React.Component {
         let dndSources = [taskDndSource];
 
         return (
-            <div>
-                <div className="App">
-                    <Row>
-                        <Col span={19}>
-                            <style>
-                                {this.css}
-                            </style>
-                            <hr></hr>
-                            <div className="text-right">
-                                <ButtonGroup className="text-right" aria-label="Basic example" onClick={this.schemaTypeSelectionHandle.bind(this)}>
-                                    <Button variant="primary" value="Pos1">Controller</Button>
-                                    <Button variant="primary" value="Pos2">Instructor</Button>
-                                    <Button variant="primary" value="Pos3">Instructor Trainee</Button>
-                                    <Button variant="primary" value="Pos4">Trainee</Button>
-                                </ButtonGroup>
-                            </div>
-
-                            <Scheduler
-                                schedulerData={viewModel}
-                                prevClick={this.prevClick}
-                                nextClick={this.nextClick}
-                                onSelectDate={this.onSelectDate}
-                                onViewChange={this.onViewChange}
-                                eventItemClick={this.eventClicked}
-                                viewEventClick={this.ops1}
-                                viewEventText="Ops 1"
-                                viewEvent2Text="Ops 2"
-                                viewEvent2Click={this.ops2}
-                                updateEventStart={this.updateEventStart}
-                                updateEventEnd={this.updateEventEnd}
-                                moveEvent={this.moveEvent}
-                                movingEvent={this.movingEvent}
-                                newEvent={this.newEvent}
-                                eventItemPopoverTemplateResolver={this.eventItemPopoverTemplateResolver}
-                                onScrollLeft={this.onScrollLeft}
-                                onScrollRight={this.onScrollRight}
-                                onScrollTop={this.onScrollTop}
-                                onScrollBottom={this.onScrollBottom}
-                                slotClickedFunc={this.slotClickedFunc}
-                                conflictOccurred={this.conflictOccurred}
-                                dndSources={dndSources}
-                                toggleExpandFunc={this.toggleExpandFunc}
-                            />
-                        </Col>
-                        <Col span={4}>
-                            <div style={{ 'margin-top': '100px', 'height': '100%', 'padding-top': '5px', 'padding-bottom': '10px', backgroundColor: 'grey', color: 'white' }}>
-                                <b><em>Squadron Members</em></b>
-                            </div>
-                            <style>
-                                {/* {this.css2} */}
-                                {/* {this.css3} */}
-                                {/* {this.css4} */}
-                            </style>
-                            <div style={{ 'border-width': 'thin', border: 'solid', 'height': '100% !important' }}>
-                                {dndList}
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+            <>
                 <div>
-                    <Button className="btn btn-primary" onClick={this.checkEvents}>Save</Button>
+                    <p className="text-left">Dashboard &#62; Schedules</p>
+                    <div className="member-box">
+
+                        <div>
+                            <div className="member-header">Schedules</div>
+                        </div>
+                        <hr />
+                        <div className="App">
+                            <Row>
+                                <Col span={20}>
+                                    <style>
+                                        {this.css}
+                                    </style>
+
+                                    <div className="text-right">
+                                        <ButtonGroup className="text-right" aria-label="Basic example" onClick={this.schemaTypeSelectionHandle.bind(this)}>
+                                            <Button variant="primary" value="Pos1">Controller</Button>
+                                            <Button variant="primary" value="Pos2">Instructor</Button>
+                                            <Button variant="primary" value="Pos3">Instructor Trainee</Button>
+                                            <Button variant="primary" value="Pos4">Trainee</Button>
+                                        </ButtonGroup>
+                                    </div>
+
+                                    <Scheduler
+                                        schedulerData={viewModel}
+                                        prevClick={this.prevClick}
+                                        nextClick={this.nextClick}
+                                        onSelectDate={this.onSelectDate}
+                                        onViewChange={this.onViewChange}
+                                        eventItemClick={this.eventClicked}
+                                        viewEventClick={this.ops1}
+                                        viewEventText="Ops 1"
+                                        viewEvent2Text="Ops 2"
+                                        viewEvent2Click={this.ops2}
+                                        updateEventStart={this.updateEventStart}
+                                        updateEventEnd={this.updateEventEnd}
+                                        moveEvent={this.moveEvent}
+                                        movingEvent={this.movingEvent}
+                                        newEvent={this.newEvent}
+                                        eventItemPopoverTemplateResolver={this.eventItemPopoverTemplateResolver}
+                                        onScrollLeft={this.onScrollLeft}
+                                        onScrollRight={this.onScrollRight}
+                                        onScrollTop={this.onScrollTop}
+                                        onScrollBottom={this.onScrollBottom}
+                                        slotClickedFunc={this.slotClickedFunc}
+                                        conflictOccurred={this.conflictOccurred}
+                                        dndSources={dndSources}
+                                        toggleExpandFunc={this.toggleExpandFunc}
+                                    />
+                                </Col>
+                                <Col span={4}>
+                                    <div style={{ 'margin-top': '100px', 'height': '100%', 'padding-top': '5px', 'padding-bottom': '10px', backgroundColor: 'grey', color: 'white' }}>
+                                        <b><em>Squadron Members</em></b>
+                                    </div>
+                                    <style>
+                                        {this.css2}
+                                        {/* {this.css3} */}
+                                        {this.css4}
+                                    </style>
+                                    <div style={{ 'border-width': 'thin', border: 'solid', 'height': '100% !important' }}>
+                                        {dndList}
+                                    </div>
+                                </Col>
+                            </Row>
+                            <div>
+                                <Button className="btn btn-primary" onClick={this.checkEvents}>Save</Button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
     prevClick = schedulerData => {
         schedulerData.prev();
-        schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(DemoData.eventsForMember);
+        schedulerData.setEvents(this.state.eventMembers);
         this.setState({
             viewModel: schedulerData
         });
@@ -194,7 +254,8 @@ class AppScheduler extends React.Component {
 
     nextClick = schedulerData => {
         schedulerData.next();
-        schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(DemoData.eventsForMember);
+        schedulerData.setEvents(this.state.eventMembers);
         this.setState({
             viewModel: schedulerData
         });
@@ -206,7 +267,8 @@ class AppScheduler extends React.Component {
             view.showAgenda,
             view.isEventPerspective
         );
-        schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(DemoData.eventsForMember);
+        schedulerData.setEvents(this.state.eventMembers);
         this.setState({
             viewModel: schedulerData
         });
@@ -214,7 +276,8 @@ class AppScheduler extends React.Component {
 
     onSelectDate = (schedulerData, date) => {
         schedulerData.setDate(date);
-        schedulerData.setEvents(DemoData.eventsForMember);
+        //schedulerData.setEvents(DemoData.eventsForMember);
+        schedulerData.setEvents(this.state.eventMembers);
         this.setState({
             viewModel: schedulerData
         });
@@ -230,8 +293,7 @@ class AppScheduler extends React.Component {
 
     ops1 = (schedulerData, event) => {
         window.alert(
-            `You just executed ops1 to event: {id: ${event.id}, title: ${
-            event.title
+            `You just executed ops1 to event: {id: ${event.id}, title: ${event.title
             }}`
         );
 
@@ -240,8 +302,7 @@ class AppScheduler extends React.Component {
 
     ops2 = (schedulerData, event) => {
         window.alert(
-            `You just executed ops2 to event: {id: ${event.id}, title: ${
-            event.title
+            `You just executed ops2 to event: {id: ${event.id}, title: ${event.title
             }}`
         );
     };
@@ -262,7 +323,7 @@ class AppScheduler extends React.Component {
         if (item === undefined) return;
 
         let newEvent = {
-            id: newFreshId,
+            id: 0,
             title: item.name,
             start: start,
             end: end + 1,
@@ -270,6 +331,10 @@ class AppScheduler extends React.Component {
             bgColor: this.state.titleColour,
             isInstructor: this.state.isInstructor,
             isTrainee: this.state.isTrainee,
+            movable: true,
+            resizable: true,
+            startResizable: true,
+            endResizable: true,
             squadron: null
         };
 
@@ -383,7 +448,9 @@ class AppScheduler extends React.Component {
     onScrollRight = (schedulerData, schedulerContent, maxScrollLeft) => {
         if (schedulerData.ViewTypes === ViewTypes.Day) {
             schedulerData.next();
-            schedulerData.setEvents(events);
+            //schedulerData.setEvents(events);
+            //schedulerData.setEvents(DemoData.eventsForMember);
+            schedulerData.setEvents(this.state.eventMembers);
             this.setState({
                 viewModel: schedulerData
             });
@@ -395,7 +462,9 @@ class AppScheduler extends React.Component {
     onScrollLeft = (schedulerData, schedulerContent, maxScrollLeft) => {
         if (schedulerData.ViewTypes === ViewTypes.Day) {
             schedulerData.prev();
-            schedulerData.setEvents(events);
+            //schedulerData.setEvents(events);
+            //schedulerData.setEvents(DemoData.eventsForMember);
+            schedulerData.setEvents(this.state.eventMembers);
             this.setState({
                 viewModel: schedulerData
             });

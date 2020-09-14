@@ -19,6 +19,7 @@
     "react-dnd-html5-backend": "^7.4.4",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "react-scrollbars-custom": "^4.0.25",
     "rrule": "2.6.0",
     "typescript": "^3.8"
   },
