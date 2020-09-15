@@ -75,6 +75,10 @@ class AppScheduler extends React.Component {
     componentDidMount() {
         console.log('AppScheduler componentDidMount: (Entry)');
 
+        this.loadData();
+    }
+
+    loadData() {
         MemberService.getBySquadronId(3)
             .then(res => {
                 const memList = res.data;
@@ -84,11 +88,11 @@ class AppScheduler extends React.Component {
                 memList.map(m => {
                     const mbr = {
                         id: 0,
-                        start: '',
-                        end: '',
+                        start: '2017-12-18 12:30:00',
+                        end: '2017-12-18 13:30:00',
                         resourceId: '',
                         title: '',
-                        bgColor: '#D9D9D9',
+                        bgColor: m.catStatusColour,
                         groupId: m.id,
                         groupName: m.callSign,
                         isInstructor: false,
@@ -100,15 +104,17 @@ class AppScheduler extends React.Component {
                 })
                 this.setState({ eventMembers: eventMemberList });
 
+                const { viewModel } = this.state;
+                //viewModel.setEvents(DemoData.eventsForMember);
+                viewModel.setEvents(this.state.eventMembers);
+
+                this.setState({ viewModel });
+
                 console.log('AppScheduler componentDidMount:', this.state.eventMembers);
             })
             .catch(e => {
                 console.log('AppScheduler componentDidMount:', e);
             });
-    }
-
-    componentDidUpdate() {
-
     }
 
     schemaTypeSelectionHandle(event) {
@@ -219,7 +225,7 @@ class AppScheduler extends React.Component {
                                     />
                                 </Col>
                                 <Col span={4}>
-                                    <div style={{ 'margin-top': '100px', 'height': '100%', 'padding-top': '5px', 'padding-bottom': '10px', backgroundColor: 'grey', color: 'white' }}>
+                                    <div style={{ marginTop: '100px', height: '100%', paddingTop: '5px', paddingBottom: '10px', backgroundColor: 'grey', color: 'white' }}>
                                         <b><em>Squadron Members</em></b>
                                     </div>
                                     <style>
@@ -227,7 +233,7 @@ class AppScheduler extends React.Component {
                                         {/* {this.css3} */}
                                         {this.css4}
                                     </style>
-                                    <div style={{ 'border-width': 'thin', border: 'solid', 'height': '100% !important' }}>
+                                    <div style={{ borderWidth: 'thin', border: 'solid', height: '100% !important' }}>
                                         {dndList}
                                     </div>
                                 </Col>
@@ -245,6 +251,7 @@ class AppScheduler extends React.Component {
 
     prevClick = schedulerData => {
         schedulerData.prev();
+        
         //schedulerData.setEvents(DemoData.eventsForMember);
         schedulerData.setEvents(this.state.eventMembers);
         this.setState({
@@ -313,43 +320,46 @@ class AppScheduler extends React.Component {
         //         `Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`
         //     )
         // ) {
-        let newFreshId = 0;
-        schedulerData.events.forEach((item) => {
-            if (item.id >= newFreshId) newFreshId = item.id + 1;
-        });
+            let newFreshId = 0;
+            schedulerData.events.forEach((item) => {
+                if (item.id >= newFreshId) newFreshId = item.id + 1;
+            });
 
-        console.log('newEvent>>>>>>>:', item);
+            console.log('newEvent (item):', item);
 
-        if (item === undefined) return;
+            if (item === undefined) return;
 
-        let newEvent = {
-            id: 0,
-            title: item.name,
-            start: start,
-            end: end + 1,
-            resourceId: slotId,
-            bgColor: this.state.titleColour,
-            isInstructor: this.state.isInstructor,
-            isTrainee: this.state.isTrainee,
-            movable: true,
-            resizable: true,
-            startResizable: true,
-            endResizable: true,
-            squadron: null
-        };
-
-        if (type === DnDTypes.TASK) {
-            newEvent = {
-                ...newEvent,
-                groupId: item.id,
-                groupName: item.name
+            let newEvent = {
+                id: 0,
+                title: item.name,
+                start: start,
+                end: end,
+                resourceId: slotId,
+                bgColor: item.state.bgColor,
+                isInstructor: this.state.isInstructor,
+                isTrainee: this.state.isTrainee,
+                squadron: null
             };
-        }
+            // movable: true,
+            // resizable: true,
+            // startResizable: true,
+            // endResizable: true,
 
-        schedulerData.addEvent(newEvent);
-        this.setState({
-            viewModel: schedulerData
-        });
+            if (type === DnDTypes.TASK) {
+                newEvent = {
+                    ...newEvent,
+                    groupId: item.id,
+                    groupName: item.name
+                };
+            }
+
+            console.log('newEvent (newEvent):', newEvent);
+
+            schedulerData.addEvent(newEvent);
+            this.setState({
+                viewModel: schedulerData
+            });
+
         // }
     };
 
